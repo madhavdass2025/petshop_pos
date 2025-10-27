@@ -48,6 +48,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="add_sale_return.php" class="nav-link">
+                        <i class="nav-icon fas fa-undo"></i>
+                        <p>Sales Return</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-bar"></i>
                         <p>
@@ -78,6 +84,12 @@
                             <a href="dead_stock_report.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dead Stock Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="stock_report.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Report</p>
                             </a>
                         </li>
                     </ul>

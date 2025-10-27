@@ -28,9 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $total_gst += ($quantity * $unit_price * $gst_rate) / 100;
     }
 
-    $sql = "INSERT INTO sales_invoices (customer_name, physician_name, prescription_id, total_amount, total_gst) VALUES (?, ?, ?, ?, ?)";
+    $payment_method = $_POST['payment_method'];
+
+    $sql = "INSERT INTO sales_invoices (customer_name, physician_name, prescription_id, total_amount, total_gst, payment_method) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssddd", $customer_name, $physician_name, $prescription_id, $total_amount, $total_gst);
+    $stmt->bind_param("ssddds", $customer_name, $physician_name, $prescription_id, $total_amount, $total_gst, $payment_method);
     $stmt->execute();
     $invoice_id = $stmt->insert_id;
 

@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("location: ./index.php");
-    exit();
-}
 include './core/db_connect.php';
 
 $id = $_GET['id'];

@@ -101,6 +101,7 @@ CREATE TABLE `sales_invoices` (
   `customer_name` varchar(255) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `total_gst` decimal(10,2) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
   `physician_name` varchar(255) DEFAULT NULL,
   `prescription_id` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -119,6 +120,30 @@ CREATE TABLE `sales_invoice_items` (
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `sales_invoice_items_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `sales_invoices` (`id`),
   CONSTRAINT `sales_invoice_items_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `sales_returns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) NOT NULL,
+  `return_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reason` varchar(255) DEFAULT NULL,
+  `total_refund_amount` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `invoice_id` (`invoice_id`),
+  CONSTRAINT `sales_returns_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `sales_invoices` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `sales_return_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_id` int(11) NOT NULL,
+  `stock_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `refund_amount` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `return_id` (`return_id`),
+  KEY `stock_id` (`stock_id`),
+  CONSTRAINT `sales_return_items_ibfk_1` FOREIGN KEY (`return_id`) REFERENCES `sales_returns` (`id`),
+  CONSTRAINT `sales_return_items_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `stock_log` (

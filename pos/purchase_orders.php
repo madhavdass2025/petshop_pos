@@ -1,12 +1,13 @@
 <?php
-session_start();
+include './core/db_connect.php';
+?>
+<?php include './includes/header.php'; ?>
+<?php
 if (!isset($_SESSION['user_id'])) {
     header("location: ./index.php");
     exit();
 }
-include './core/db_connect.php';
 ?>
-<?php include './includes/header.php'; ?>
 <?php include './includes/sidebar.php'; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

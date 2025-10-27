@@ -39,8 +39,8 @@ INSERT INTO `stock` (`product_id`, `batch_number`, `expiry_date`, `quantity`, `p
 (3, 'BETA123', '2026-01-31', 20, 50.00, 60.00, 'Rack C');
 
 -- Sample Sales Invoice
-INSERT INTO `sales_invoices` (`customer_name`, `total_amount`, `total_gst`, `physician_name`, `prescription_id`) VALUES
-('John Doe', 60.00, 7.20, 'Dr. Smith', 'PS-123');
+INSERT INTO `sales_invoices` (`customer_name`, `total_amount`, `total_gst`, `payment_method`, `physician_name`, `prescription_id`) VALUES
+('John Doe', 60.00, 7.20, 'Cash', 'Dr. Smith', 'PS-123');
 
 -- Sample Sales Invoice Items
 INSERT INTO `sales_invoice_items` (`invoice_id`, `stock_id`, `quantity`, `unit_price`, `gst_amount`) VALUES

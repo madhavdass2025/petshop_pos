@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("location: ./index.php");
-    exit();
-}
 include './core/db_connect.php';
 ?>
 <!DOCTYPE html>
@@ -15,6 +10,12 @@ include './core/db_connect.php';
 </head>
 <body>
     <?php include './includes/header.php'; ?>
+<?php
+if (!isset($_SESSION['user_id'])) {
+    header("location: ./index.php");
+    exit();
+}
+?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
@@ -61,6 +62,14 @@ include './core/db_connect.php';
                     <div class="form-group">
                         <label for="prescription_id">Prescription ID</label>
                         <input type="text" name="prescription_id" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_method">Payment Method</label>
+                        <select name="payment_method" class="form-control" required>
+                            <option value="Cash">Cash</option>
+                            <option value="Card">Card</option>
+                            <option value="UPI">UPI</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-success">Complete Sale</button>
                 </form>

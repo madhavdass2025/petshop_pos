@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("location: ./index.php");
-    exit();
-}
 include './core/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -23,6 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <?php include './includes/header.php'; ?>
+<?php
+if (!isset($_SESSION['user_id'])) {
+    header("location: ./index.php");
+    exit();
+}
+?>
 <?php include './includes/sidebar.php'; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

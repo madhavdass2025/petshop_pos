@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("location: ./index.php");
-    exit();
-}
 include './core/db_connect.php';
 
 $days = isset($_GET['days']) ? $_GET['days'] : 30;
@@ -16,6 +11,12 @@ $days = isset($_GET['days']) ? $_GET['days'] : 30;
 </head>
 <body>
     <?php include './includes/header.php'; ?>
+<?php
+if (!isset($_SESSION['user_id'])) {
+    header("location: ./index.php");
+    exit();
+}
+?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">

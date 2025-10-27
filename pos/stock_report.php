@@ -4,7 +4,7 @@ include './core/db_connect.php';
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sales Report - Medical Shop POS</title>
+    <title>Stock Report - Medical Shop POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
@@ -22,30 +22,36 @@ if (!isset($_SESSION['user_id'])) {
                 <?php include './includes/sidebar.php'; ?>
             </div>
             <div class="col-md-10">
-                <h2>Sales Report</h2>
-                <table id="sales_table" class="table table-bordered">
+                <h2>Stock Report</h2>
+                <table id="stock_table" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Invoice ID</th>
-                            <th>Customer Name</th>
-                            <th>Date</th>
-                            <th>Total Amount</th>
-                            <th>Payment Method</th>
-                            <th>Action</th>
+                            <th>Product Name</th>
+                            <th>Batch Number</th>
+                            <th>Expiry Date</th>
+                            <th>Quantity</th>
+                            <th>Purchase Price</th>
+                            <th>Selling Price</th>
+                            <th>Location</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT id, customer_name, invoice_date, total_amount, payment_method FROM sales_invoices ORDER BY invoice_date DESC";
+                        $sql = "SELECT p.name, s.batch_number, s.expiry_date, s.quantity, s.purchase_price, s.selling_price, s.location
+                                FROM stock s
+                                JOIN products p ON s.product_id = p.id
+                                WHERE s.quantity > 0
+                                ORDER BY p.name, s.expiry_date";
                         $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr>";
-                            echo "<td>" . $row['id'] . "</td>";
-                            echo "<td>" . $row['customer_name'] . "</td>";
-                            echo "<td>" . $row['invoice_date'] . "</td>";
-                            echo "<td>" . $row['total_amount'] . "</td>";
-                            echo "<td>" . $row['payment_method'] . "</td>";
-                            echo "<td><a href='view_sales_invoice.php?id=" . $row['id'] . "' class='btn btn-info btn-sm'>View</a></td>";
+                            echo "<td>" . $row['name'] . "</td>";
+                            echo "<td>" . $row['batch_number'] . "</td>";
+                            echo "<td>" . $row['expiry_date'] . "</td>";
+                            echo "<td>" . $row['quantity'] . "</td>";
+                            echo "<td>" . $row['purchase_price'] . "</td>";
+                            echo "<td>" . $row['selling_price'] . "</td>";
+                            echo "<td>" . $row['location'] . "</td>";
                             echo "</tr>";
                         }
                         ?>
@@ -58,7 +64,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#sales_table').DataTable();
+            $('#stock_table').DataTable();
         });
     </script>
 </body>
