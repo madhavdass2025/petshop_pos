@@ -70,6 +70,21 @@ $po = $result->fetch_assoc();
                 <?php if ($po['status'] == 'Sent'): ?>
                 <a href="receive_grn.php?po_id=<?php echo $po['id']; ?>" class="btn btn-success">Receive GRN</a>
                 <?php endif; ?>
+
+                <hr>
+                <h4>Change Status</h4>
+                <form action="update_po_status.php" method="post">
+                    <input type="hidden" name="po_id" value="<?php echo $po_id; ?>">
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                            <option value="Draft" <?php if($po['status'] == 'Draft') echo 'selected'; ?>>Draft</option>
+                            <option value="Sent" <?php if($po['status'] == 'Sent') echo 'selected'; ?>>Sent</option>
+                            <option value="Cancelled" <?php if($po['status'] == 'Cancelled') echo 'selected'; ?>>Cancelled</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Status</button>
+                </form>
             </div>
         </div>
     </div>
