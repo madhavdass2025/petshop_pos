@@ -14,12 +14,6 @@ INSERT INTO `products` (`name`, `generic_name`, `storage_condition`, `unit_of_me
 ('Crocin', 'Paracetamol', 'Room Temperature', 'Strip', '3004', 12.00, 10),
 ('Betadine', 'Povidone-Iodine', 'Room Temperature', 'Bottle', '3004', 12.00, 5);
 
--- Sample Stock
-INSERT INTO `stock` (`product_id`, `batch_number`, `expiry_date`, `quantity`, `purchase_price`, `selling_price`, `location`) VALUES
-(1, 'DOLO123', '2025-12-31', 100, 25.00, 30.00, 'Rack A'),
-(2, 'CRO123', '2025-11-30', 50, 20.00, 25.00, 'Rack B'),
-(3, 'BETA123', '2026-01-31', 20, 50.00, 60.00, 'Rack C');
-
 -- Sample Purchase Order
 INSERT INTO `purchase_orders` (`supplier_id`, `po_date`, `status`) VALUES
 (1, '2024-01-15', 'Received');
@@ -37,6 +31,12 @@ INSERT INTO `goods_receipt_notes` (`po_id`, `grn_date`, `supplier_invoice_number
 INSERT INTO `grn_items` (`grn_id`, `product_id`, `batch_number`, `expiry_date`, `quantity`, `purchase_price`, `gst_amount`) VALUES
 (1, 1, 'DOLO123', '2025-12-31', 100, 25.00, 300.00),
 (1, 2, 'CRO123', '2025-11-30', 50, 20.00, 120.00);
+
+-- Sample Stock
+INSERT INTO `stock` (`product_id`, `batch_number`, `expiry_date`, `quantity`, `purchase_price`, `selling_price`, `location`) VALUES
+(1, 'DOLO123', '2025-12-31', 100, 25.00, 30.00, 'Rack A'),
+(2, 'CRO123', '2025-11-30', 50, 20.00, 25.00, 'Rack B'),
+(3, 'BETA123', '2026-01-31', 20, 50.00, 60.00, 'Rack C');
 
 -- Sample Sales Invoice
 INSERT INTO `sales_invoices` (`customer_name`, `total_amount`, `total_gst`, `physician_name`, `prescription_id`) VALUES
