@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("location: ../../index.php");
+    header("location: ./index.php");
     exit();
 }
-include '../../core/db_connect.php';
+include './core/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-<?php include '../../includes/header.php'; ?>
-<?php include '../../includes/sidebar.php'; ?>
+<?php include './includes/header.php'; ?>
+<?php include './includes/sidebar.php'; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -93,4 +93,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<?php include '../../includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>

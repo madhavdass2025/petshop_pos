@@ -1,5 +1,5 @@
 <?php
-include '../../core/db_connect.php';
+include './core/db_connect.php';
 if(isset($_POST["product_id"]))
 {
     $output = '';

@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("location: ../../index.php");
+    header("location: ./index.php");
     exit();
 }
-include '../../core/db_connect.php';
+include './core/db_connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $supplier_id = $_POST['supplier_id'];
@@ -39,11 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-    <?php include '../../includes/header.php'; ?>
+    <?php include './includes/header.php'; ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <?php include '../../includes/sidebar.php'; ?>
+                <?php include './includes/sidebar.php'; ?>
             </div>
             <div class="col-md-10">
                 <h2>Add Purchase Order</h2>

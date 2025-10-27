@@ -1,13 +1,13 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("location: ../../index.php");
+    header("location: ./index.php");
     exit();
 }
-include '../../core/db_connect.php';
+include './core/db_connect.php';
 ?>
-<?php include '../../includes/header.php'; ?>
-<?php include '../../includes/sidebar.php'; ?>
+<?php include './includes/header.php'; ?>
+<?php include './includes/sidebar.php'; ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -15,7 +15,7 @@ include '../../core/db_connect.php';
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Suppliers</h1>
+                    <h1>Purchase Orders</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -28,36 +28,38 @@ include '../../core/db_connect.php';
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="add_supplier.php" class="btn btn-primary">Add Supplier</a>
+                            <a href="add_purchase_order.php" class="btn btn-primary">Add Purchase Order</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="suppliers_table" class="table table-bordered table-hover">
+                            <table id="purchase_orders_table" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Contact</th>
-                                        <th>GSTIN</th>
+                                        <th>PO ID</th>
+                                        <th>Supplier</th>
+                                        <th>PO Date</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $sql = "SELECT * FROM suppliers";
+                                    $sql = "SELECT po.id, s.name as supplier_name, po.po_date, po.status
+                                            FROM purchase_orders po
+                                            JOIN suppliers s ON po.supplier_id = s.id";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while($row = $result->fetch_assoc()) {
                                             echo "<tr>";
                                             echo "<td>" . $row['id'] . "</td>";
-                                            echo "<td>" . $row['name'] . "</td>";
-                                            echo "<td>" . $row['contact'] . "</td>";
-                                            echo "<td>" . $row['gstin'] . "</td>";
-                                            echo "<td><a href='edit_supplier.php?id=" . $row['id'] . "' class='btn btn-sm btn-info'>Edit</a> <a href='delete_supplier.php?id=" . $row['id'] . "' class='btn btn-sm btn-danger'>Delete</a></td>";
+                                            echo "<td>" . $row['supplier_name'] . "</td>";
+                                            echo "<td>" . $row['po_date'] . "</td>";
+                                            echo "<td>" . $row['status'] . "</td>";
+                                            echo "<td><a href='view_purchase_order.php?id=" . $row['id'] . "' class='btn btn-sm btn-info'>View</a></td>";
                                             echo "</tr>";
                                         }
                                     } else {
-                                        echo "<tr><td colspan='5'>No suppliers found</td></tr>";
+                                        echo "<tr><td colspan='5'>No purchase orders found</td></tr>";
                                     }
                                     ?>
                                 </tbody>
@@ -76,10 +78,10 @@ include '../../core/db_connect.php';
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-<?php include '../../includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready( function () {
-        $('#suppliers_table').DataTable();
+        $('#purchase_orders_table').DataTable();
     } );
 </script>

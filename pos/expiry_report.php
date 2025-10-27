@@ -1,10 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header("location: ../../index.php");
+    header("location: ./index.php");
     exit();
 }
-include '../../core/db_connect.php';
+include './core/db_connect.php';
 
 $days = isset($_GET['days']) ? $_GET['days'] : 30;
 ?>
@@ -15,11 +15,11 @@ $days = isset($_GET['days']) ? $_GET['days'] : 30;
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <?php include '../../includes/header.php'; ?>
+    <?php include './includes/header.php'; ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
-                <?php include '../../includes/sidebar.php'; ?>
+                <?php include './includes/sidebar.php'; ?>
             </div>
             <div class="col-md-10">
                 <h2>Expiry Report</h2>
