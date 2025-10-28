@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
             <div class="col-md-5">
                 <h4>Cart</h4>
-                <form action="submit_sale.php" method="post">
+                <form id="sale-form" action="submit_sale.php" method="post">
                     <table class="table table-bordered" id="cart_table">
                         <thead>
                             <tr>
@@ -51,6 +51,18 @@ if (!isset($_SESSION['user_id'])) {
                         </tbody>
                     </table>
                     <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Total: <span id="grand_total">0.00</span></h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="discount">Discount</label>
+                                <input type="number" name="discount" id="discount" class="form-control" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="form-group">
                         <label for="customer_name">Customer Name</label>
                         <input type="text" name="customer_name" class="form-control" required>
@@ -63,15 +75,15 @@ if (!isset($_SESSION['user_id'])) {
                         <label for="prescription_id">Prescription ID</label>
                         <input type="text" name="prescription_id" class="form-control">
                     </div>
-                    <div class="form-group">
-                        <label for="payment_method">Payment Method</label>
-                        <select name="payment_method" class="form-control" required>
-                            <option value="Cash">Cash</option>
-                            <option value="Card">Card</option>
-                            <option value="UPI">UPI</option>
-                        </select>
+                    <hr>
+                    <h4>Payments</h4>
+                    <div id="payment_fields">
+                        <!-- Payment fields will be added here -->
                     </div>
-                    <button type="submit" class="btn btn-success">Complete Sale</button>
+                    <button type="button" id="add_payment" class="btn btn-primary btn-sm">Add Payment</button>
+                    <hr>
+                    <button type="submit" name="action" value="paid" class="btn btn-success">Complete Sale</button>
+                    <button type="submit" name="action" value="credit" class="btn btn-warning">Place on Credit</button>
                 </form>
             </div>
         </div>
@@ -134,7 +146,51 @@ if (!isset($_SESSION['user_id'])) {
             $(document).on('click', '.btn_remove', function(){
                 var button_id = $(this).attr("id");
                 $('#row'+button_id+'').remove();
+                update_total();
             });
+
+            $('#discount').on('input', function() {
+                update_total();
+            });
+
+            var payment_count = 0;
+            $('#add_payment').click(function() {
+                payment_count++;
+                var new_payment = '<div class="row" id="payment_row_'+payment_count+'">';
+                new_payment += '<div class="col-md-5"><div class="form-group"><select name="payments['+payment_count+'][method]" class="form-control"><option value="Cash">Cash</option><option value="Card">Card</option><option value="UPI">UPI</option></select></div></div>';
+                new_payment += '<div class="col-md-5"><div class="form-group"><input type="number" name="payments['+payment_count+'][amount]" class="form-control payment-amount" placeholder="Amount"></div></div>';
+                new_payment += '<div class="col-md-2"><button type="button" class="btn btn-danger btn-sm remove-payment" data-row="'+payment_count+'">X</button></div>';
+                new_payment += '</div>';
+                $('#payment_fields').append(new_payment);
+            });
+
+            $(document).on('click', '.remove-payment', function(){
+                var row_id = $(this).data('row');
+                $('#payment_row_'+row_id).remove();
+            });
+
+            function update_total() {
+                var total = 0;
+                $('#cart_table tbody tr').each(function() {
+                    total += parseFloat($(this).find('td:eq(4)').text());
+                });
+                var discount = parseFloat($('#discount').val());
+                if(isNaN(discount)) {
+                    discount = 0;
+                }
+                var grand_total = total - discount;
+                $('#grand_total').text(grand_total.toFixed(2));
+            }
+
+            // Update total when cart is modified
+            var original_append = $.fn.append;
+            $.fn.append = function() {
+                original_append.apply(this, arguments);
+                if (this.selector === '#cart_table tbody') {
+                    update_total();
+                }
+            };
+
         });
     </script>
 </body>

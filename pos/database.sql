@@ -101,11 +101,23 @@ CREATE TABLE `sales_invoices` (
   `customer_name` varchar(255) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `total_gst` decimal(10,2) NOT NULL,
-  `payment_method` varchar(50) NOT NULL,
+  `discount_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `status` varchar(50) NOT NULL,
   `physician_name` varchar(255) DEFAULT NULL,
   `prescription_id` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `sales_payments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_id` int(11) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `payment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `invoice_id` (`invoice_id`),
+  CONSTRAINT `sales_payments_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `sales_invoices` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `sales_invoice_items` (

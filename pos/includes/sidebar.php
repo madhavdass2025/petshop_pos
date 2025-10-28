@@ -92,6 +92,18 @@
                                 <p>Stock Report</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="sales_return_report.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sales Return Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="stock_level_report.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Level Report</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
