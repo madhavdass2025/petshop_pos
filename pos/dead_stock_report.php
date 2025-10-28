@@ -6,7 +6,7 @@ $days = isset($_GET['days']) ? $_GET['days'] : 90;
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dead Stock Report - Medical Shop POS</title>
+    <title>Dead Stock Report - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>

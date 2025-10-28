@@ -16,7 +16,7 @@ $po = $result->fetch_assoc();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Purchase Order - Medical Shop POS</title>
+    <title>View Purchase Order - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>

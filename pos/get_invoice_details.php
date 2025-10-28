@@ -21,7 +21,7 @@ if (isset($_POST['invoice_id'])) {
         $invoice = $invoice_details[0];
 
         echo "<h4>Invoice #" . $invoice['id'] . "</h4>";
-        echo "<p><strong>Customer:</strong> " . $invoice['customer_name'] . "</p>";
+        echo "<p><strong>Pet Owner:</strong> " . $invoice['customer_name'] . "</p>";
         echo "<p><strong>Date:</strong> " . $invoice['invoice_date'] . "</p>";
         echo "<hr>";
 

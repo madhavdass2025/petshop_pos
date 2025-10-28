@@ -7,7 +7,11 @@ if (!isset($_GET['id'])) {
 }
 
 $invoice_id = $_GET['id'];
-$sql = "SELECT * FROM sales_invoices WHERE id = ?";
+$sql = "SELECT si.*, p.name as pet_name, c.name as owner_name
+        FROM sales_invoices si
+        JOIN pets p ON si.pet_id = p.id
+        JOIN customers c ON p.owner_id = c.id
+        WHERE si.id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $invoice_id);
 $stmt->execute();
@@ -17,7 +21,7 @@ $invoice = $result->fetch_assoc();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Invoice - Medical Shop POS</title>
+    <title>View Invoice - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -38,13 +42,14 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>Invoice ID:</strong> <?php echo $invoice['id']; ?></p>
-                        <p><strong>Customer Name:</strong> <?php echo $invoice['customer_name']; ?></p>
+                        <p><strong>Pet Owner Name:</strong> <?php echo $invoice['owner_name']; ?></p>
+                        <p><strong>Pet Name:</strong> <?php echo $invoice['pet_name']; ?></p>
                         <p><strong>Invoice Date:</strong> <?php echo $invoice['invoice_date']; ?></p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Physician Name:</strong> <?php echo $invoice['physician_name']; ?></p>
+                        <p><strong>Veterinarian Name:</strong> <?php echo $invoice['veterinarian_name']; ?></p>
                         <p><strong>Prescription ID:</strong> <?php echo $invoice['prescription_id']; ?></p>
-                        <!-- <p><strong>Status:</strong> <?php echo $invoice['status']; ?></p> -->
+                        <p><strong>Status:</strong> <?php echo $invoice['status']; ?></p>
                     </div>
                 </div>
 
@@ -127,7 +132,6 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="row">
                     <div class="col-md-6">
                         <h4>Payment Details</h4>
-                        <!-- This block is commented out until the database schema can be updated
                         <table class="table">
                             <?php
                             $sql_payments = "SELECT payment_method, amount FROM sales_payments WHERE invoice_id = ?";
@@ -140,15 +144,13 @@ if (!isset($_SESSION['user_id'])) {
                             }
                             ?>
                         </table>
-                        -->
-                        <p><strong>Payment Method:</strong> <?php echo $invoice['payment_method']; ?></p>
                     </div>
                     <div class="col-md-6">
                         <h4>Summary</h4>
                         <p><strong>Sub Total:</strong> <?php echo number_format($invoice['total_amount'], 2); ?></p>
                         <p><strong>Total GST:</strong> <?php echo number_format($invoice['total_gst'], 2); ?></p>
-                        <!-- <p><strong>Discount:</strong> - <?php echo number_format($invoice['discount_amount'], 2); ?></p> -->
-                        <p><strong>Grand Total:</strong> <?php echo number_format($invoice['total_amount'] + $invoice['total_gst'], 2); ?></p>
+                        <p><strong>Discount:</strong> - <?php echo number_format($invoice['discount_amount'], 2); ?></p>
+                        <p><strong>Grand Total:</strong> <?php echo number_format($invoice['total_amount'] + $invoice['total_gst'] - $invoice['discount_amount'], 2); ?></p>
                     </div>
                 </div>
 

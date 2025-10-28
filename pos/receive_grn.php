@@ -56,7 +56,7 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Receive GRN - Medical Shop POS</title>
+    <title>Receive GRN - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>

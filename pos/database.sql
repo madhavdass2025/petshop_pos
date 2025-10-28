@@ -16,6 +16,29 @@ CREATE TABLE `suppliers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `address` text,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `pets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `species` varchar(100) NOT NULL,
+  `breed` varchar(100) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `owner_id` (`owner_id`),
+  CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `customers` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -98,15 +121,17 @@ CREATE TABLE `grn_items` (
 CREATE TABLE `sales_invoices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `customer_name` varchar(255) NOT NULL,
+  `pet_id` int(11) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `total_gst` decimal(10,2) NOT NULL,
   `discount_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `status` varchar(50) NOT NULL,
-  `physician_name` varchar(255) DEFAULT NULL,
+  `veterinarian_name` varchar(255) DEFAULT NULL,
   `prescription_id` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `pet_id` (`pet_id`),
+  CONSTRAINT `sales_invoices_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `sales_payments` (

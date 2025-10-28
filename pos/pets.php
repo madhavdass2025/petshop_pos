@@ -1,4 +1,6 @@
 <?php
+?>
+<?php
 include './core/db_connect.php';
 ?>
 <?php include './includes/header.php'; ?>
@@ -8,10 +10,16 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 ?>
+<?php
+if (!isset($_SESSION['user_id'])) {
+    header("location: ./index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sales Return Report - Pet Clinic Pharmacy POS</title>
+    <title>Pets - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
@@ -22,7 +30,10 @@ if (!isset($_SESSION['user_id'])) {
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Sales Return Report</h1>
+                        <h1>Pets</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="add_pet.php" class="btn btn-primary float-sm-right">Add Pet</a>
                     </div>
                 </div>
             </div>
@@ -33,27 +44,29 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table id="returns_table" class="table table-bordered table-striped">
+                                <table id="pets_table" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Return ID</th>
-                                            <th>Original Invoice ID</th>
-                                            <th>Return Date</th>
-                                            <th>Reason</th>
-                                            <th>Refund Amount</th>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Owner</th>
+                                            <th>Species</th>
+                                            <th>Breed</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $sql = "SELECT * FROM sales_returns ORDER BY return_date DESC";
+                                        $sql = "SELECT p.*, c.name as owner_name FROM pets p JOIN customers c ON p.owner_id = c.id ORDER BY p.name";
                                         $result = $conn->query($sql);
                                         while ($row = $result->fetch_assoc()) {
                                             echo "<tr>";
                                             echo "<td>" . $row['id'] . "</td>";
-                                            echo "<td><a href='view_sales_invoice.php?id=" . $row['invoice_id'] . "'>" . $row['invoice_id'] . "</a></td>";
-                                            echo "<td>" . $row['return_date'] . "</td>";
-                                            echo "<td>" . $row['reason'] . "</td>";
-                                            echo "<td>" . $row['total_refund_amount'] . "</td>";
+                                            echo "<td>" . $row['name'] . "</td>";
+                                            echo "<td>" . $row['owner_name'] . "</td>";
+                                            echo "<td>" . $row['species'] . "</td>";
+                                            echo "<td>" . $row['breed'] . "</td>";
+                                            echo "<td><a href='edit_pet.php?id=" . $row['id'] . "' class='btn btn-info btn-sm'>Edit</a></td>";
                                             echo "</tr>";
                                         }
                                         ?>
@@ -70,7 +83,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#returns_table').DataTable();
+            $('#pets_table').DataTable();
         });
     </script>
 </body>

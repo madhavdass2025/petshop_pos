@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stock Level Report - Medical Shop POS</title>
+    <title>Stock Level Report - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>

@@ -4,7 +4,7 @@ include './core/db_connect.php';
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sales Return - Medical Shop POS</title>
+    <title>Sales Return - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>

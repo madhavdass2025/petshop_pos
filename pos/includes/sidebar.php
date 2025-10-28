@@ -2,7 +2,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
-        <span class="brand-text font-weight-light">Medical POS</span>
+        <span class="brand-text font-weight-light">Pet Clinic POS</span>
     </a>
 
     <!-- Sidebar -->
@@ -21,6 +21,18 @@
                     <a href="dashboard.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="owners.php" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Owners</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="pets.php" class="nav-link">
+                        <i class="nav-icon fas fa-paw"></i>
+                        <p>Pets</p>
                     </a>
                 </li>
                 <li class="nav-item">

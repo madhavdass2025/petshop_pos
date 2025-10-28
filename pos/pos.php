@@ -4,7 +4,7 @@ include './core/db_connect.php';
 <!DOCTYPE html>
 <html>
 <head>
-    <title>POS - Medical Shop POS</title>
+    <title>POS - Pet Clinic Pharmacy POS</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
@@ -64,11 +64,20 @@ if (!isset($_SESSION['user_id'])) {
                     </div>
                     <hr>
                     <div class="form-group">
-                        <label for="customer_name">Customer Name</label>
-                        <input type="text" name="customer_name" class="form-control" required>
+                        <label for="pet_id">Select Pet</label>
+                        <select name="pet_id" id="pet_id" class="form-control" required>
+                            <option value="">Select a Pet</option>
+                            <?php
+                            $sql = "SELECT p.id, p.name, c.name as owner_name FROM pets p JOIN customers c ON p.owner_id = c.id ORDER BY c.name, p.name";
+                            $result = $conn->query($sql);
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['owner_name'] . " - " . $row['name'] . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="physician_name">Physician Name</label>
+                        <label for="physician_name">Veterinarian Name</label>
                         <input type="text" name="physician_name" class="form-control">
                     </div>
                     <div class="form-group">

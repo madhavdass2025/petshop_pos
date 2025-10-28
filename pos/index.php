@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Medical Shop POS | Log in</title>
+    <title>Pet Clinic Pharmacy POS | Log in</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -17,7 +17,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>Medical Shop</b>POS</a>
+        <a href="#"><b>Pet Clinic Pharmacy</b>POS</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
